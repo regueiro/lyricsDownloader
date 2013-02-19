@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -18,9 +19,11 @@ import org.jdesktop.swingx.JXButton;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTextField;
 
-import com.pedrohlc.viewlyricsppensearcher.LyricInfo;
-import com.pedrohlc.viewlyricsppensearcher.Result;
-import com.pedrohlc.viewlyricsppensearcher.ViewLyricsSearcher;
+
+import es.regueiro.lyricsDownloader.api.lyrics.Lyric;
+import es.regueiro.lyricsDownloader.api.lyrics.LyricFile;
+import es.regueiro.lyricsDownloader.plugins.api.Plugin;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 import java.awt.Component;
@@ -48,15 +51,18 @@ public class MainWindow {
 	private int pageCount;
 	private String artist;
 	private String title;
+	
+	private Plugin plugin;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void run() {
+	public static void run(final Plugin plugin) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
+					window.plugin = plugin;
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,46 +83,24 @@ public class MainWindow {
 
 		initialize();
 	}
+	
 
 	private void searchAndPopulateList(String artist, String title, int page) {
 		this.artist = artist;
 		this.title = title;
 		this.page = page;
 		this.pageCount = 0;
-		Result results = null;
-
-		try {
-			results = ViewLyricsSearcher.search(artist, title, page);
-		} catch (ClientProtocolException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (NoSuchAlgorithmException e1) {
-			e1.printStackTrace();
-		}
+		
+		List<Lyric> lyricList = plugin.search(artist, title);
+		
 		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 
-		if (results != null) {
-			this.pageCount = results.getPageCount();
+		if (lyricList != null) {
+			//this.pageCount = results.getPageCount();
 			
-			for (LyricInfo lyr : results.getLyricsInfo()) {
-				String name = lyr.getMusicArtist()+" - "+lyr.getMusicTitle();
-				if (lyr.getLyricRate()!=null) {
-					name = name.concat(" - Rating: "+lyr.getLyricRate());
-					
-					if (lyr.getLyricRatesCount()!= null && lyr.getLyricRatesCount()>0) {
-						name = name.concat(" ("+lyr.getLyricRatesCount()+" votes)");
-					}
-					name = name.concat(" - ");
-				} else {
-					name = name.concat(" - ");
-				}
-				if (lyr.getLyricDownloadsCount()!=null) {
-					name = name.concat(lyr.getLyricDownloadsCount()+" downloads - ");
-				}
-				name = name.concat(lyr.getLyricsFileName());
-				//String name = lyr.dump();
+			for (Lyric lyr : lyricList) {
+				String name = lyr.getArtist()+" - "+lyr.getTitle();
 				listModel.addElement(name);
 			}
 		}
