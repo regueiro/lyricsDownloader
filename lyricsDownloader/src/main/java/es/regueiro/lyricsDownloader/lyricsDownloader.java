@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import es.regueiro.lyricsDownloader.api.plugins.Plugin;
 import es.regueiro.lyricsDownloader.lyrics.LyricFile;
 import es.regueiro.lyricsDownloader.plugins.PluginService;
 import es.regueiro.lyricsDownloader.plugins.PluginServiceFactory;
-import es.regueiro.lyricsDownloader.plugins.api.Plugin;
 //import es.regueiro.lyricsDownloader.plugins.Plugin;
 //import es.regueiro.lyricsDownloader.plugins.PluginManager;
 import es.regueiro.lyricsDownloader.ui.MainWindow;
@@ -28,7 +28,9 @@ public class lyricsDownloader {
 		Plugin plu = null;
 		
 		for(Plugin p: loadPlugins()) {
-			plu = p;
+			if (p.getName().equals("Example provider")) {
+				plu = p;
+			}
 		}
 
 		MainWindow.run(plu);

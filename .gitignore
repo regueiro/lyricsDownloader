@@ -13,3 +13,4 @@ target/
 .springBeans
 
 /diagrams
+doc/

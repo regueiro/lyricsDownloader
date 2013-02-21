@@ -1,6 +1,7 @@
 package es.regueiro.lyricsDownloader.plugins;
 
-import es.regueiro.lyricsDownloader.plugins.api.Plugin;
+import es.regueiro.lyricsDownloader.api.plugins.Plugin;
+
 import java.util.Iterator;
  
 public interface PluginService

@@ -20,9 +20,9 @@ import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTextField;
 
 
-import es.regueiro.lyricsDownloader.api.lyrics.Lyric;
-import es.regueiro.lyricsDownloader.api.lyrics.LyricFile;
-import es.regueiro.lyricsDownloader.plugins.api.Plugin;
+import es.regueiro.lyricsDownloader.api.lyrics.Song;
+import es.regueiro.lyricsDownloader.api.lyrics.LyricResult;
+import es.regueiro.lyricsDownloader.api.plugins.Plugin;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
@@ -91,7 +91,7 @@ public class MainWindow {
 		this.page = page;
 		this.pageCount = 0;
 		
-		List<Lyric> lyricList = plugin.search(artist, title);
+		List<LyricResult> lyricList = plugin.listLyricsFor(artist, title);
 		
 		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
@@ -99,7 +99,7 @@ public class MainWindow {
 		if (lyricList != null) {
 			//this.pageCount = results.getPageCount();
 			
-			for (Lyric lyr : lyricList) {
+			for (LyricResult lyr : lyricList) {
 				String name = lyr.getArtist()+" - "+lyr.getTitle();
 				listModel.addElement(name);
 			}

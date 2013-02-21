@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
-import es.regueiro.lyricsDownloader.plugins.api.Plugin;
+import es.regueiro.lyricsDownloader.api.plugins.Plugin;
  
 public class StandardPluginService implements PluginService
 {
