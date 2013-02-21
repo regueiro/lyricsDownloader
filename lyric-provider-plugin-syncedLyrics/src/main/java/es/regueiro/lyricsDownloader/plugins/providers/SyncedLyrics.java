@@ -1,13 +1,16 @@
 package es.regueiro.lyricsDownloader.plugins.providers;
 
 import es.regueiro.lyricsDownloader.api.lyrics.Lyric;
-import es.regueiro.lyricsDownloader.api.lyrics.LyricFile;
-import es.regueiro.lyricsDownloader.plugins.api.Plugin;
+import es.regueiro.lyricsDownloader.api.lyrics.Song;
+import es.regueiro.lyricsDownloader.api.lyrics.LyricResult;
+import es.regueiro.lyricsDownloader.api.plugins.Plugin;
+
 import com.pedrohlc.viewlyricsppensearcher.LyricInfo;
 import com.pedrohlc.viewlyricsppensearcher.Result;
 import com.pedrohlc.viewlyricsppensearcher.ViewLyricsSearcher;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +30,8 @@ public class SyncedLyrics implements Plugin {
 		logger.info(getName() + " initialized!");
 	}
 
-	@Override
-	public List<Lyric> search(String artist, String title) {
-		return searchSyncedLyrics(artist, title);
-	}
-
-	private List<Lyric> searchSyncedLyrics(String artist, String title) {
-		List<Lyric> lyricList = new ArrayList<Lyric>();
+	private List<LyricResult> searchSyncedLyrics(String artist, String title) {
+		List<LyricResult> lyricList = new ArrayList<LyricResult>();
 		int page = 0;
 		int pageCount = 0;
 		Result results = null;
@@ -53,7 +51,7 @@ public class SyncedLyrics implements Plugin {
 
 			for (LyricInfo lyr : results.getLyricsInfo()) {
 
-				Lyric lyric = new LyricFile();
+				LyricResult lyric = new LyricResult();
 				
 				lyric.setArtist(lyr.getMusicArtist());
 				lyric.setTitle(lyr.getMusicTitle());
@@ -64,5 +62,28 @@ public class SyncedLyrics implements Plugin {
 		}
 
 		return lyricList;
+	}
+
+	@Override
+	public void shutdown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<LyricResult> listLyricsFor(String artist, String title) {
+		return searchSyncedLyrics(artist, title);
+	}
+
+	@Override
+	public Lyric getLyricsFromURL(URL url) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Lyric getLyricFor(String artist, String title) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
