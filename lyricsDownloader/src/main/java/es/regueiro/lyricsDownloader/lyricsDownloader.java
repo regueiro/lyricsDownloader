@@ -8,11 +8,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.regueiro.lyricsDownloader.api.plugins.Plugin;
-import es.regueiro.lyricsDownloader.lyrics.LyricFile;
 import es.regueiro.lyricsDownloader.plugins.PluginService;
 import es.regueiro.lyricsDownloader.plugins.PluginServiceFactory;
-//import es.regueiro.lyricsDownloader.plugins.Plugin;
-//import es.regueiro.lyricsDownloader.plugins.PluginManager;
 import es.regueiro.lyricsDownloader.ui.MainWindow;
 
 public class lyricsDownloader {
@@ -23,7 +20,6 @@ public class lyricsDownloader {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"lyric-beans.xml");
-		LyricFile lyricFile = (LyricFile) context.getBean("lyricFile");
 
 		Plugin plu = null;
 		
@@ -50,18 +46,4 @@ public class lyricsDownloader {
 		
 		return list;
 	}
-
-	// private static void loadPlugins(){
-	// PluginManager manager = new PluginManager();
-	// List<Plugin> plugins;
-	// try {
-	// plugins = manager.loadPlugins();
-	// for(Plugin plugin:plugins){
-	// plugin.run();
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-
 }
