@@ -22,8 +22,8 @@ public class lyricsDownloader {
 				"lyric-beans.xml");
 
 		Plugin plu = null;
-		
-		for(Plugin p: loadPlugins()) {
+
+		for (Plugin p : loadPlugins()) {
 			if (p.getName().equals("Example provider")) {
 				plu = p;
 			}
@@ -36,14 +36,14 @@ public class lyricsDownloader {
 		PluginService pluginService = PluginServiceFactory
 				.createPluginService();
 		pluginService.initPlugins();
-		
+
 		List<Plugin> list = new ArrayList<Plugin>();
 		Iterator<Plugin> iter = pluginService.getPlugins();
-		
+
 		while (iter.hasNext()) {
 			list.add(iter.next());
 		}
-		
+
 		return list;
 	}
 }
