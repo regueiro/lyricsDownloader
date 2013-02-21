@@ -1,41 +1,47 @@
 package es.regueiro.lyricsDownloader.api.lyrics;
 
-public abstract class Lyric {
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Lyric.
+ */
+public class Lyric extends Song {
 
-	private String artist;
-	private String title;
-	private String album;
-	private int length;
-		
-	public String getArtist() {
-		return artist;
+	/** The lyrics. */
+	private String lyrics;
+
+	/**
+	 * Instantiates a new lyric.
+	 */
+	public Lyric() {
+
 	}
-	public void setArtist(String artist) {
-		this.artist = artist;
+
+	/**
+	 * Gets the lyrics.
+	 *
+	 * @return the lyrics
+	 */
+	public String getLyrics() {
+		return lyrics;
 	}
-	public String getTitle() {
-		return title;
+
+	/**
+	 * Sets the lyrics.
+	 *
+	 * @param lyrics the new lyrics
+	 */
+	public void setLyrics(String lyrics) {
+		this.lyrics = lyrics;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getAlbum() {
-		return album;
-	}
-	public void setAlbum(String album) {
-		this.album = album;
-	}
-	public int getLength() {
-		return length;
-	}
-	public void setLength(int length) {
-		this.length = length;
-	}
-	
+
+	/* (non-Javadoc)
+	 * @see es.regueiro.lyricsDownloader.api.lyrics.Song#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Lyric [artist=" + artist + ", title=" + title + ", length="
-				+ length + ", album=" + album + "]";
+		return "LyricText [getArtist()=" + getArtist() + ", getTitle()="
+				+ getTitle() + ", getAlbum()=" + getAlbum() + ", lyrics="
+				+ lyrics + "]";
 	}
 
 }
